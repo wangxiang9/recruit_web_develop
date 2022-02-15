@@ -14,10 +14,7 @@
 					1.用户名：单词字符，长度8到20位
 					2.密码：单词字符，长度8到20位
 					3.email：邮件格式
-					4.姓名：非空
-					5.手机号：手机号格式
-					6.出生日期：非空
-					7.验证码：非空
+					4.验证码：非空
 			 */
 
 			//校验用户名
@@ -85,8 +82,8 @@
 					//1.发送数据到服务器
 					if(checkUsername() && checkPassword() && checkEmail()){
 					    //校验通过,发送ajax请求，提交表单的数据   username=zhangsan&password=123
-
-						$.post("registUserServlet",$(this).serialize(),function(data){
+						$("#errorMsg").html("正在请求数据...");
+						$.post("/recruit/user/registered",$(this).serialize(),function(data){
 							//处理服务器响应的数据  data  {flag:true,errorMsg:"注册失败"}
 
 							if(data.flag){
@@ -94,7 +91,7 @@
 								location.href="register_ok.html";
 							}else{
 							    //注册失败,给errorMsg添加提示信息
-								$("#errorMsg").html(data.errorMsg);
+								$("#errorMsg").html(data.msg);
 
 							}
 						});
@@ -109,11 +106,7 @@
 				$("#username").blur(checkUsername);
                 $("#password").blur(checkPassword);
                 $("#email").blur(checkEmail);
-
-
             });
-
-
 		</script>
 
 
@@ -129,7 +122,7 @@
     				<p>USER REGISTER</p>
     			</div>
     			<div class="rg_form_center">
-					<div id="errorMsg" style="color:red;text-align: center"></div>
+
 					<!--注册表单-->
     				<form id="registerForm" action="user">
 						<!--提交处理请求的标识符-->
@@ -184,6 +177,7 @@
     						</tr>
     					</table>
     				</form>
+					<div id="errorMsg" style="color:red;text-align: center;margin-top: 25px"></div>
     			</div>
     			<div class="rg_form_right">
     				<p>

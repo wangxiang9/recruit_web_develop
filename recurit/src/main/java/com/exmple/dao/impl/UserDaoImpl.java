@@ -90,9 +90,4 @@ public class UserDaoImpl implements UserDao {
         }
         return user;
     }
-
-    @Override
-    public String findStatusByUsername(String username) {
-        return null;
-    }
 }

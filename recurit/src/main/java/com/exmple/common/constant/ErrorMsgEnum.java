@@ -6,7 +6,7 @@ public enum ErrorMsgEnum {
     USERNAME_EXIT(2,"用户名已存在"),
     EMAIL_EXIT(3,"邮箱已存在"),
     U_OR_P_ERROR(4,"用户名或密码错误"),
-    EMAIL_NOT_ACTIVE(5,"邮箱未激活"),
+    EMAIL_NOT_ACTIVE(5,"邮箱未激活，请前往邮箱激活"),
     ERROR(6,"未知错误");
     private Integer code;
     private String value;

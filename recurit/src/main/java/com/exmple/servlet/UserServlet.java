@@ -140,6 +140,17 @@ public class UserServlet extends BaseServlet{
             resultInfo.setFlag(true);
         }else{//登录失败
             resultInfo.setFlag(false);
+            //需要能获取到邮箱，不然空指针
+            if("邮箱未激活，请前往邮箱激活".equals(msg)){
+                //发送激活邮件
+                resultInfo.setFlag(true);
+                try {
+                    MailUtils.sendMail(user.getEmail(),"<a href='http://localhost/recruit/user/active?code="+user.getCode()+"'>请点击此处激活</a>","激活邮件");
+                } catch (Exception e) {
+                    resultInfo.setFlag(false);
+                    resultInfo.setMsg("邮箱地址有误");
+                }
+            }
         }
         resultInfo.setMsg(msg);
         responseMsg(resultInfo,response);

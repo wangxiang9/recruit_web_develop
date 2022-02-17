@@ -53,11 +53,13 @@ public class UserServiceImpl implements UserService {
         Integer code =1;//code默认是1即正常
         //查询用户名或密码是否正确修改code
         User userByU_P=userDao.findUserByUsernameAndPassword(user.getUsername(),user.getPassword());
-        if(userByU_P==null)code=4;
-        else{//查询是否激活修改code
-            String status=userDao.findStatusByUsername(user.getUsername());
+        if(userByU_P==null){//用户名或密码错误
+            code=4;
+        }else{//查询是否激活修改code
+            String status=userByU_P.getStatus();
             if("N".equals(status))code=5;
         }
+        System.out.println(code);
         return ErrorMsgEnum.getValueByCode(code);
     }
 }

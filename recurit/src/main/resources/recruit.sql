@@ -88,7 +88,6 @@ CREATE TABLE `tab_user`  (
   `uid` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `password` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `email` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `status` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `code` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
@@ -100,9 +99,9 @@ CREATE TABLE `tab_user`  (
 -- ----------------------------
 -- Records of tab_user
 -- ----------------------------
-INSERT INTO `tab_user` VALUES (1, '1', '1', '1', '1', '1', '1');
-INSERT INTO `tab_user` VALUES (12, '14', '1', '1', '11', '1', '2');
-INSERT INTO `tab_user` VALUES (13, '12', '1', '1', '1', '1', '13');
-INSERT INTO `tab_user` VALUES (14, '34', '23', '2', '1', '1', '4');
+INSERT INTO `tab_user` VALUES (1, '1', '1', '1', '1', '1');
+INSERT INTO `tab_user` VALUES (12, '14', '1', '11', '1', '2');
+INSERT INTO `tab_user` VALUES (13, '12', '1', '1', '1', '13');
+INSERT INTO `tab_user` VALUES (14, '34', '23', '1', '1', '4');
 
 SET FOREIGN_KEY_CHECKS = 1;

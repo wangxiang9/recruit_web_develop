@@ -1,4 +1,4 @@
-package com.exmple.web.servlet;
+package com.exmple.servlet;
 
 import com.exmple.domin.ResultInfo;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -17,10 +17,8 @@ public class BaseServlet extends HttpServlet {
         //完成方法分发
         //1.获取请求路径
         String uri = req.getRequestURI();
-        System.out.println(uri);
         //2.获取方法名称
         String methodName = uri.substring(uri.lastIndexOf('/') + 1);
-        System.out.println(methodName);
         //3.获取方法对象Method
         try {
             Method method = this.getClass().getMethod(methodName, HttpServletRequest.class, HttpServletResponse.class);//谁调用就代表谁

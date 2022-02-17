@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -34,19 +35,41 @@ public class BaseServlet extends HttpServlet {
 
     /**
      * java对象转json并响应数据方法
-     * @param resultInfo
+     * @param obj
      * @param response
      */
-    public void responseMsg(ResultInfo resultInfo, HttpServletResponse response){
+    public void responseMsg(Object obj, HttpServletResponse response){
         //将java对象转成json
         ObjectMapper objectMapper = new ObjectMapper();
         //设置响应content-type
         response.setContentType("application/json;charset=utf-8");
         //响应数据
         try {
-            objectMapper.writeValue(response.getOutputStream(),resultInfo);
+            objectMapper.writeValue(response.getOutputStream(),obj);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 检查验证码返回错误信息
+     * @param session
+     * @param check
+     * @return
+     */
+    public ResultInfo checkCheckCode(HttpSession session, String check){
+        //获取实际产生的验证码
+        String checkCode= (String)session.getAttribute("CHECKCODE_SERVER");
+        session.removeAttribute("CHECKCODE_SERVER");
+        ResultInfo resultInfo = new ResultInfo();
+        //判断两者是否相同返回信息
+        if(checkCode==null||!checkCode.equalsIgnoreCase(check)){
+            //存储错误信息
+            resultInfo.setFlag(false);
+            resultInfo.setMsg("验证码错误");
+        }else {
+            resultInfo.setFlag(true);
+        }
+        return resultInfo;
     }
 }

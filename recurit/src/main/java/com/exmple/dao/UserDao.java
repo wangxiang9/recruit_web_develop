@@ -12,4 +12,5 @@ public interface UserDao {
     void changeStatusByCode(String code);
 
     User findUserByUsernameAndPassword(String username, String password);
+
 }

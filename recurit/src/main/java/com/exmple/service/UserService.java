@@ -8,4 +8,6 @@ public interface UserService {
     void changeStatus(String code);
 
     String login(User user);
+
+    User getUser(String username);
 }

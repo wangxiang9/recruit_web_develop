@@ -62,4 +62,14 @@ public class UserServiceImpl implements UserService {
         System.out.println(code);
         return ErrorMsgEnum.getValueByCode(code);
     }
+
+    /**
+     * 通过用户名获取用户信息
+     * @param username
+     * @return
+     */
+    @Override
+    public User getUser(String username) {
+        return userDao.findByUserName(username);
+    }
 }

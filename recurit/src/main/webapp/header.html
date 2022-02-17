@@ -1,13 +1,25 @@
 <!-- 头部 start -->
 <script>
-    /*$(function () {
-       $.get("findUserServlet",{},function (data) {
+    $(function () {
+        //获取用户名异步请求
+       $.get("/recruit/user/getUsername",{},function (data) {
            //{uid:1,name:'李四'}
-           var msg = "欢迎回来，"+data.name;
+           var msg = "欢迎回来，"+data.username;
            $("#span_username").html(msg);
 
-       }); 
-    });*/
+       });
+       //获取分类信息异步请求
+        $.get("/recruit/category/findAll",{},function (data) {
+            var lis='<li className="nav-active"><a href="index.html">首页</a></li>';
+            //循环遍历拼接字符串
+            for (var i = 0; i < data.length; i++) {
+                var li='<li><a href="route_list.html">'+data[i].cname+'</a></li>'
+                lis+=li;
+            }
+            lis+='<li><a href="favoriterank.html">收藏排行榜</a></li>';
+            $("#category").html(lis);
+        })
+    });
 
 </script>
 <header id="header">
@@ -17,19 +29,23 @@
                     <input name="" type="text" placeholder="请输入要搜索的信息" class="search_input" autocomplete="off">
                     <a href="javascript:;" class="search-button">搜索</a>
                 </div>
+
                 <div class="shortcut" style="margin-top: 15px">
+
                     <!-- 未登录状态  -->
                     <div class="login_out" >
                         <a href="login.html">登录</a>
                         <a href="register.html">注册</a>
                     </div>
                     <!-- 登录状态  -->
+
                     <div class="login" >
 
-                        <span id="span_username"></span>
+
                         <a href="myfavorite.html" class="collection">我的收藏</a>
-                        <a href="javascript:location.href='exitServlet';">退出</a>
+                        <a href="javascript:location.href='/recruit/user/exit';">退出</a>
                     </div>
+                    <div class="login_out"><span id="span_username"></span></div>
                 </div>
 
             </div>
@@ -38,17 +54,8 @@
     <!-- 头部 end -->
      <!-- 首页导航 -->
     <div class="navitem">
-        <ul class="nav">
-            <li class="nav-active"><a href="index.html">首页</a></li>
-            <li><a href="route_list.html">门票</a></li>
-            <li><a href="route_list.html">酒店</a></li>
-            <li><a href="route_list.html">香港车票</a></li>
-            <li><a href="route_list.html">出境游</a></li>
-            <li><a href="route_list.html">国内游</a></li>
-            <li><a href="route_list.html">港澳游</a></li>
-            <li><a href="route_list.html">抱团定制</a></li>
-            <li><a href="route_list.html">全球自由行</a></li>
-            <li><a href="favoriterank.html">收藏排行榜</a></li>
+        <ul class="nav" id="category">
+
         </ul>
     </div>
     

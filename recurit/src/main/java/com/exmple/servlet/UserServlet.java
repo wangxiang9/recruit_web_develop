@@ -6,6 +6,7 @@ import com.exmple.service.UserService;
 import com.exmple.service.impl.UserServiceImpl;
 import com.exmple.utils.MailUtils;
 import com.exmple.utils.UuidUtil;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -36,15 +37,9 @@ public class UserServlet extends BaseServlet{
         String check=request.getParameter("check");
         //获取session对象
         HttpSession session = request.getSession();
-        //获取实际产生的验证码
-        String checkCode= (String)session.getAttribute("CHECKCODE_SERVER");
-        session.removeAttribute("CHECKCODE_SERVER");
-        //判断两者是否相同返回信息
-        if(checkCode==null||!checkCode.equalsIgnoreCase(check)){
-            //存储错误信息
-            ResultInfo resultInfo = new ResultInfo();
-            resultInfo.setFlag(false);
-            resultInfo.setMsg("验证码错误");
+        //检查验证码
+        ResultInfo resultInfo = checkCheckCode(session,check);
+        if (!resultInfo.isFlag()){
             responseMsg(resultInfo,response);
             return;
         }
@@ -64,7 +59,6 @@ public class UserServlet extends BaseServlet{
         user.setCode(UuidUtil.getUuid());
         //调用service完成注册
         String msg = userService.registered(user);//正常表示用户名可用
-        ResultInfo resultInfo = new ResultInfo();
         resultInfo.setMsg(msg);
         resultInfo.setFlag(false);
         if("正常".equals(msg)){
@@ -108,15 +102,9 @@ public class UserServlet extends BaseServlet{
         String check=request.getParameter("check");
         //获取session对象
         HttpSession session = request.getSession();
-        //获取实际产生的验证码
-        String checkCode= (String)session.getAttribute("CHECKCODE_SERVER");
-        session.removeAttribute("CHECKCODE_SERVER");
-        //判断两者是否相同返回信息
-        if(checkCode==null||!checkCode.equalsIgnoreCase(check)){
-            //存储错误信息
-            ResultInfo resultInfo = new ResultInfo();
-            resultInfo.setFlag(false);
-            resultInfo.setMsg("验证码错误");
+        //检查验证码
+        ResultInfo resultInfo = checkCheckCode(session,check);
+        if (!resultInfo.isFlag()){
             responseMsg(resultInfo,response);
             return;
         }
@@ -131,8 +119,6 @@ public class UserServlet extends BaseServlet{
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
-        //存储错误信息
-        ResultInfo resultInfo = new ResultInfo();
         String msg=userService.login(user);//结果为“正常”即可登录
         if("正常".equals(msg)){//登录成功
             //将user存储在session中
@@ -140,10 +126,9 @@ public class UserServlet extends BaseServlet{
             resultInfo.setFlag(true);
         }else{//登录失败
             resultInfo.setFlag(false);
-            //需要能获取到邮箱，不然空指针
             if("邮箱未激活，请前往邮箱激活".equals(msg)){
                 //发送激活邮件
-                resultInfo.setFlag(true);
+                user=userService.getUser(user.getUsername());//获取完整用户信息
                 try {
                     MailUtils.sendMail(user.getEmail(),"<a href='http://localhost/recruit/user/active?code="+user.getCode()+"'>请点击此处激活</a>","激活邮件");
                 } catch (Exception e) {
@@ -154,5 +139,27 @@ public class UserServlet extends BaseServlet{
         }
         resultInfo.setMsg(msg);
         responseMsg(resultInfo,response);
+    }
+
+    /**
+     * 获取用户名响应给客户端
+     * @param request
+     * @param response
+     */
+    public void getUsername(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        User user= (User) session.getAttribute("user");
+        responseMsg(user,response);
+    }
+
+    /**
+     * 退出功能
+     * @param request
+     * @param response
+     */
+    public void exit(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        //销毁session
+        request.getSession().invalidate();
+        response.sendRedirect(request.getContextPath()+"/login.html");
     }
 }

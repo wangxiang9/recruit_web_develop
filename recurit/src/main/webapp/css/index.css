@@ -82,7 +82,7 @@
 	display: block;	
 }
 .jx_content .has_border, .guone_r .has_border{		
-	border: 1px solid #eee;
+	border: 3px solid #eee;
 	padding: 0 6px;
 }
 .jx_content h3, .guone_r h3 {
@@ -106,7 +106,6 @@
 .price {
 	font-size: 12px;
 	color: #666;
-	padding-bottom: 17px;
 }
 .price em {
     font-size: 12px;

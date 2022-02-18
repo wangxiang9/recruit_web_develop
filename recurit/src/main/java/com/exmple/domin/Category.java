@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class Category {
-    private String cid;
+    private Integer cid;
     private String cname;
 }

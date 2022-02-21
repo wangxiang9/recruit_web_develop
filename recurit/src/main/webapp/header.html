@@ -13,11 +13,18 @@
             var lis='<li className="nav-active"><a href="index.html">首页</a></li>';
             //循环遍历拼接字符串
             for (var i = 0; i < data.length; i++) {
-                var li='<li><a href="route_list.html">'+data[i].cname+'</a></li>'
+                var li='<li><a href="info_list.html?cid='+data[i].cid+'">'+data[i].cname+'</a></li>'
                 lis+=li;
             }
             lis+='<li><a href="favoriterank.html">收藏排行榜</a></li>';
             $("#category").html(lis);
+        })
+        //给搜索框绑定单击事件
+        $("#search-button").click(function () {
+            //获取检索内容
+            var rname=$("#search-input").val();
+            var cid=getParameter("cid");
+            location.href="http://localhost/recruit/info_list.html?cid="+cid+"&rname="+rname;
         })
     });
 
@@ -26,8 +33,8 @@
         <div class="header_wrap" style="margin-top: 25px">
             <div class="topbar">
                 <div class="search">
-                    <input name="" type="text" placeholder="请输入要搜索的信息" class="search_input" autocomplete="off">
-                    <a href="javascript:;" class="search-button">搜索</a>
+                    <input name="" type="text" placeholder="请输入要搜索的信息" class="search_input" autocomplete="off" id="search-input">
+                    <a href="javascript:;" class="search-button" id="search-button">搜索</a>
                 </div>
 
                 <div class="shortcut" style="margin-top: 15px">
@@ -40,8 +47,6 @@
                     <!-- 登录状态  -->
 
                     <div class="login" >
-
-
                         <a href="myfavorite.html" class="collection">我的收藏</a>
                         <a href="javascript:location.href='/recruit/user/exit';">退出</a>
                     </div>
@@ -55,7 +60,6 @@
      <!-- 首页导航 -->
     <div class="navitem">
         <ul class="nav" id="category">
-
         </ul>
     </div>
     

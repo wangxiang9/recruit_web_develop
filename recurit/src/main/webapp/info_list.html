@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>黑马旅游-搜索</title>
+    <title>搜索</title>
     <link rel="stylesheet" type="text/css" href="css/common.css">
     <link rel="stylesheet" href="css/search.css">
     <!-- Bootstrap -->
@@ -25,6 +25,97 @@
     <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script>
+        $(function (){
+            //获取cid的参数值
+            var cid = getParameter("cid");
+            //获取rname的参数值
+            var rname = getParameter("rname");
+            //判断rname如果不为null或者""
+            if (rname){
+                //url解码
+                rname=window.decodeURIComponent(rname);
+                //当页码加载完成后，调用load方法，发送ajax请求加载数据
+                load(cid,null,rname);
+            }
+        });
+        function load(cid, currentPage, rname) {
+            //异步加载页面数据
+            $.get("recruit/info/pageQuery",{cid:cid,currentPage:currentPage,rname:rname},function (data) {
+                //总页数和总记录数
+                $("#totalPage").html(data.totalPage);
+                $("#totalCount").html(data.totalCount);
+                /*<li><a href="">首页</a></li>
+                <li className="threeword"><a href="#">上一页</a></li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#">6</a></li>
+                <li><a href="#">7</a></li>
+                <li><a href="#">8</a></li>
+                <li><a href="#">9</a></li>
+                <li><a href="#">10</a></li>
+                <li className="threeword"><a href="javascript:;">下一页</a></li>
+                <li className="threeword"><a href="javascript:;">末页</a></li>*/
+                //拼接页码显示
+                //首页拼接
+                var lis='<li onclick="load('+cid+',1,'+rname+')"><a href="javascript:void(0)">首页</a></li>';
+                //计算上一页
+                var beforeNum=data.currentPage-1;
+                if (beforeNum<1){
+                    beforeNum=1;
+                }
+                //上一页拼接
+                lis+='<li className="threeword" onclick="load('+cid+','+beforeNum+','+rname+')"><a href="javascript:void(0)">上一页</a></li>';
+                /*
+                    1.一共展示10个页码，能够达到前5后4的效果
+                    2.如果前边不够5个，后边补齐10个
+                    3.如果后边不足4个，前边补齐10个
+                */
+                var start;//开始位置
+                var end;//结束位置
+
+                if (data.totalPage<10){//总页码数小于10
+                    start=1;
+                    end=data.totalPage;
+                }else{//总页码数大于等于10
+                    start=data.currentPage-5;
+                    end=data.currentPage+4;
+                    if(start<1){//前面不够5个后面补齐
+                        start=1;
+                        end=10;
+                    }
+                    if (end>data.totalPage){//后面不够4个前面补齐
+                        end=data.totalPage;
+                        start=end-9;
+                    }
+                }
+                //拼接中间页码
+                for (var i= start;i<=end;i++){
+                    if (i==data.currentPage){//判断是否为当前页码
+                        lis+='<li onclick="load('+cid+','+i+','+rname+')" class="curPage"><a href="javascript:void(0)">'+i+'</a></li>';
+                    }else{
+                        lis+='<li onclick="load('+cid+','+i+','+rname+')"><a href="javascript:void(0)">'+i+'</a></li>';
+                    }
+                }
+                //计算尾页
+                var lastNum=data.currentPage+1;
+                if (lastNum>data.totalPage){
+                    lastNum=data.totalPage;
+                }
+                //拼接下一页
+                lis+='<li className="threeword" onclick="load('+cid+','+lastNum+','+rname+')"><a href="javascript:void(0)">下一页</a></li>';
+                //拼接尾页
+                lis+='<li onclick="load('+cid+','+data.totalPage+','+rname+')"><a href="javascript:void(0)">尾页</a></li>';
+                //将lis内容设置到 ul
+                $("#pageNum").html(lis);
+
+
+            })
+        }
+    </script>
 </head>
 <body>
 <!--引入头部-->
@@ -44,51 +135,40 @@
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane active" id="popularity">
                                 <div class="row" >
-                                    <div class="col-md-10" >
+                                    <div class="col-md-6" >
                                         <a href="javascript:;">
                                             <div class="has_border">
-                                                <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
-                                                <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
+                                                <h3>
+                                                    <span style="float: left;margin-left: 10px"><font size="4px">研发工程师</font></span>
+                                                    <span class="price" style="float: right;margin-right: 10px"><strong>15-30K·13薪</strong></span>
+                                                </h3>
+                                                <h3>
+                                                    <span style="float: left;margin-left: 10px">杭州杭州杭州杭州杭州杭州杭州</span><br>
+                                                    <div>
+                                                        <span style="float: left;margin-left: 10px">阿里巴巴</span>
+                                                        <span style="float: left;margin-left: 10px">经验不限</span>
+                                                        <span style="float: left;margin-left: 10px">本科</span>
+                                                    </div>
+                                                </h3>
                                             </div>
                                         </a>
                                     </div>
-                                </div>
-                                <div class="row"style="margin-top: 5px">
-                                    <div class="col-md-10" >
+                                    <div class="col-md-6" >
                                         <a href="javascript:;">
                                             <div class="has_border">
-                                                <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
-                                                <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="row"style="margin-top: 5px">
-                                    <div class="col-md-10" >
-                                        <a href="javascript:;">
-                                            <div class="has_border">
-                                                <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
-                                                <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="row"style="margin-top: 5px">
-                                    <div class="col-md-10" >
-                                        <a href="javascript:;">
-                                            <div class="has_border">
-                                                <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
-                                                <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="row"style="margin-top: 5px">
-                                    <div class="col-md-10" >
-                                        <a href="javascript:;">
-                                            <div class="has_border">
-                                                <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
-                                                <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
+                                                <h3>
+                                                    <span style="float: left;margin-left: 10px"><font size="4px">研发工程师</font></span>
+                                                    <span class="price" style="float: right;margin-right: 10px"><strong>15-30K·13薪</strong></span>
+                                                </h3>
+                                                <h3>
+                                                    <span style="float: left;margin-left: 10px">杭州杭州杭州杭州杭州杭杭州杭州杭州杭州杭州杭州杭州杭州</span><br>
+                                                    <div>
+                                                        <span style="float: left;margin-left: 10px">阿里巴巴</span>
+                                                        <span style="float: left;margin-left: 10px">经验不限</span>
+                                                        <span style="float: left;margin-left: 10px">本科</span>
+                                                    </div>
+
+                                                </h3>
                                             </div>
                                         </a>
                                     </div>
@@ -105,24 +185,11 @@
 
                     <div class="page_num_inf">
                         <i></i> 共
-                        <span>12</span>页<span>132</span>条
+                        <span id="totalPage">12</span>页<span id="totalCount">132</span>条
                     </div>
                     <div class="pageNum">
-                        <ul>
-                            <li><a href="">首页</a></li>
-                            <li class="threeword"><a href="#">上一页</a></li>
-                            <li><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">5</a></li>
-                            <li><a href="#">6</a></li>
-                            <li><a href="#">7</a></li>
-                            <li><a href="#">8</a></li>
-                            <li><a href="#">9</a></li>
-                            <li><a href="#">10</a></li>
-                            <li class="threeword"><a href="javascript:;">下一页</a></li>
-                            <li class="threeword"><a href="javascript:;">末页</a></li>
+                        <ul id="pageNum">
+
                         </ul>
                     </div>
                 </div>

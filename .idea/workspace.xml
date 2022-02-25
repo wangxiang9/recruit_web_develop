@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="23486089-3773-4cac-b1f8-800594d6f2b3" name="Changes" comment="feat:category展示优化">
+      <change beforePath="$PROJECT_DIR$/recurit/src/main/resources/recruit.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/代码随想录笔记记录.md" beforeDir="false" afterPath="$PROJECT_DIR$/代码随想录笔记记录.md" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="24xlxWanmVZr40GuExUkwBSXZ8a" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../develop_file/untitled1" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.repository.indices" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="G:\recruit_web_develop\recurit\src\main\resources" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="G:\recruit_web_develop\recurit\src\main\resources" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="recurit [tomcat7:run]" type="MavenRunConfiguration" factoryName="Maven" nameIsGenerated="true">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="tomcat7:run" />
+              </list>
+            </option>
+            <option name="pomFileName" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$/recurit" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="23486089-3773-4cac-b1f8-800594d6f2b3" name="Changes" comment="" />
+      <created>1644580366059</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1644580366059</updated>
+      <workItem from="1644580367590" duration="7647000" />
+      <workItem from="1644630588952" duration="1297000" />
+      <workItem from="1644671067956" duration="418000" />
+      <workItem from="1644803718219" duration="3185000" />
+      <workItem from="1644890834368" duration="37507000" />
+      <workItem from="1645106028593" duration="243000" />
+      <workItem from="1645409339792" duration="7876000" />
+    </task>
+    <task id="LOCAL-00001" summary="html初步修改">
+      <created>1644588405888</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1644588405888</updated>
+    </task>
+    <task id="LOCAL-00002" summary="html初步修改">
+      <created>1644671150988</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1644671150988</updated>
+    </task>
+    <task id="LOCAL-00003" summary="html初步修改">
+      <created>1644671328056</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1644671328057</updated>
+    </task>
+    <task id="LOCAL-00004" summary="feat:算法笔记更新">
+      <created>1644844237810</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1644844237810</updated>
+    </task>
+    <task id="LOCAL-00005" summary="feat:算法笔记更新">
+      <created>1644924674044</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1644924674044</updated>
+    </task>
+    <task id="LOCAL-00006" summary="feat:验证码校验">
+      <created>1644936737734</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1644936737734</updated>
+    </task>
+    <task id="LOCAL-00007" summary="feat:注册功能">
+      <created>1645063689863</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1645063689864</updated>
+    </task>
+    <task id="LOCAL-00008" summary="feat:注册功能">
+      <created>1645064017427</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1645064017427</updated>
+    </task>
+    <task id="LOCAL-00009" summary="feat:注册功能">
+      <created>1645071610753</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1645071610753</updated>
+    </task>
+    <task id="LOCAL-00010" summary="feat:分类信息展示">
+      <created>1645105880978</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1645105880978</updated>
+    </task>
+    <task id="LOCAL-00011" summary="feat:分类信息展示">
+      <created>1645106115501</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1645106115501</updated>
+    </task>
+    <task id="LOCAL-00012" summary="feat:算法笔记更新">
+      <created>1645444029117</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1645444029117</updated>
+    </task>
+    <task id="LOCAL-00013" summary="feat:category展示优化">
+      <created>1645455724347</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1645455724347</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="html初步修改" />
+    <MESSAGE value="feat:验证码校验" />
+    <MESSAGE value="feat:注册功能" />
+    <MESSAGE value="feat:分类信息展示" />
+    <MESSAGE value="feat:算法笔记更新" />
+    <MESSAGE value="feat:category展示优化" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat:category展示优化" />
+  </component>
+</project>

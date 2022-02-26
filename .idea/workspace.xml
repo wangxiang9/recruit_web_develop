@@ -4,8 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="23486089-3773-4cac-b1f8-800594d6f2b3" name="Changes" comment="feat:category展示优化">
-      <change beforePath="$PROJECT_DIR$/recurit/src/main/resources/recruit.sql" beforeDir="false" />
+    <list default="true" id="edacadbe-059e-4edd-8b41-c8a8b7d765cd" name="Changes" comment="feat:category展示优化">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/recurit/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/recurit/src/main/java/com/exmple/dao/DetailInfoDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/recurit/src/main/java/com/exmple/dao/DetailInfoDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/recurit/src/main/java/com/exmple/dao/impl/DetailInfoDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/recurit/src/main/java/com/exmple/dao/impl/DetailInfoDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/recurit/src/main/java/com/exmple/domin/DetailInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/recurit/src/main/java/com/exmple/domin/DetailInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/recurit/src/main/java/com/exmple/domin/pageBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/recurit/src/main/java/com/exmple/domin/PageBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/recurit/src/main/java/com/exmple/service/DetailInfoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/recurit/src/main/java/com/exmple/service/DetailInfoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/recurit/src/main/java/com/exmple/service/impl/DetailInfoServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/recurit/src/main/java/com/exmple/service/impl/DetailInfoServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/recurit/src/main/java/com/exmple/servlet/DetailInfoServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/recurit/src/main/java/com/exmple/servlet/DetailInfoServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/recurit/src/main/webapp/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/recurit/src/main/webapp/header.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/recurit/src/main/webapp/info_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/recurit/src/main/webapp/info_list.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/代码随想录笔记记录.md" beforeDir="false" afterPath="$PROJECT_DIR$/代码随想录笔记记录.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -32,13 +42,6 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
-  </component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="useMavenConfig" value="true" />
-      </MavenGeneralSettings>
-    </option>
   </component>
   <component name="ProjectId" id="24xlxWanmVZr40GuExUkwBSXZ8a" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -217,6 +220,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />

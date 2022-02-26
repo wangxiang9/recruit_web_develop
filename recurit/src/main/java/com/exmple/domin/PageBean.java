@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class pageBean <T>{
+public class PageBean<T>{
     private int totalPage;//总页数
     private int currentPage;//当前页码
     private int totalCount;//总记录数

@@ -1,4 +1,5 @@
 <!-- 头部 start -->
+<script src="js/getParameter.js"></script>
 <script>
     $(function () {
         //获取用户名异步请求
@@ -24,6 +25,7 @@
             //获取检索内容
             var rname=$("#search-input").val();
             var cid=getParameter("cid");
+            alert(cid)
             location.href="http://localhost/recruit/info_list.html?cid="+cid+"&rname="+rname;
         })
     });

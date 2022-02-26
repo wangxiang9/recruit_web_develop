@@ -19,5 +19,7 @@ public class DetailInfo {
     private String address;//工作地点
     private String request;//要求
     private String contactInformation;//联系信息
+    private String degree;//学历
+    private String experience;//经验
 
 }

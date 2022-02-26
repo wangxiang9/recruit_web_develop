@@ -6,13 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>搜索</title>
-    <link rel="stylesheet" type="text/css" href="css/common.css">
-    <link rel="stylesheet" href="css/search.css">
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/common.css">
     <link rel="stylesheet" type="text/css" href="css/index.css">
-    <script src="js/jquery-3.3.1.js"></script>
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="js/jquery-3.3.1.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -25,6 +23,10 @@
     <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <link rel="stylesheet" type="text/css" href="css/common.css">
+    <link rel="stylesheet" href="css/search.css">
+    <script src="js/jquery-3.3.1.js"></script>
+    <script src="js/getParameter.js"></script>
     <script>
         $(function (){
             //获取cid的参数值
@@ -35,30 +37,16 @@
             if (rname){
                 //url解码
                 rname=window.decodeURIComponent(rname);
-                //当页码加载完成后，调用load方法，发送ajax请求加载数据
-                load(cid,null,rname);
             }
+            //当页码加载完成后，调用load方法，发送ajax请求加载数据
+            load(cid,null,rname);
         });
         function load(cid, currentPage, rname) {
             //异步加载页面数据
-            $.get("recruit/info/pageQuery",{cid:cid,currentPage:currentPage,rname:rname},function (data) {
+            $.get("info/pageQuery",{cid:cid,currentPage:currentPage,rname:rname},function (data) {
                 //总页数和总记录数
                 $("#totalPage").html(data.totalPage);
                 $("#totalCount").html(data.totalCount);
-                /*<li><a href="">首页</a></li>
-                <li className="threeword"><a href="#">上一页</a></li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">6</a></li>
-                <li><a href="#">7</a></li>
-                <li><a href="#">8</a></li>
-                <li><a href="#">9</a></li>
-                <li><a href="#">10</a></li>
-                <li className="threeword"><a href="javascript:;">下一页</a></li>
-                <li className="threeword"><a href="javascript:;">末页</a></li>*/
                 //拼接页码显示
                 //首页拼接
                 var lis='<li onclick="load('+cid+',1,'+rname+')"><a href="javascript:void(0)">首页</a></li>';
@@ -113,6 +101,84 @@
                 $("#pageNum").html(lis);
 
 
+                //结果list的长度
+                var length=data.list.length
+                //数据的对数
+                var len=length/2;
+                var lis="";
+                for (var i=0;i<len;i++){
+                    //拼接左边
+                    var l_info=data.list[2*i];
+                    var r_info=data.list[2*i+1];
+                    lis+='<div className="row">\n' +
+                        '                    <div className="col-md-6">\n' +
+                        '                        <a href="javascript:;">\n' +
+                        '                            <div className="has_border">\n' +
+                        '                                <h3>\n' +
+                        '                                    <span style="float: left;margin-left: 10px"><font size="4px">'+l_info.iname+'</font></span>\n' +
+                        '                                    <span className="price"\n' +
+                        '                                          style="float: right;margin-right: 10px"><strong>'+l_info.salary+'</strong></span>\n' +
+                        '                                </h3>\n' +
+                        '                                <h3>\n' +
+                        '                                    <span style="float: left;margin-left: 10px">'+l_info.address+'</span><br>\n' +
+                        '                                    <div>\n' +
+                        '                                        <span style="float: left;margin-left: 10px">'+l_info.company+'</span>\n' +
+                        '                                        <span style="float: left;margin-left: 10px">'+l_info.experience+'</span>\n' +
+                        '                                        <span style="float: left;margin-left: 10px">'+l_info.degree+'</span>\n' +
+                        '                                    </div>\n' +
+                        '                                </h3>\n' +
+                        '                            </div>\n' +
+                        '                        </a>\n' +
+                        '                    </div>'
+                    //拼接右边
+                    lis+='    <div className="col-md-6">\n' +
+                        '                        <a href="javascript:;">\n' +
+                        '                            <div className="has_border">\n' +
+                        '                                <h3>\n' +
+                        '                                    <span style="float: left;margin-left: 10px"><font size="4px">'+r_info.iname+'</font></span>\n' +
+                        '                                    <span className="price"\n' +
+                        '                                          style="float: right;margin-right: 10px"><strong>'+r_info.salary+'</strong></span>\n' +
+                        '                                </h3>\n' +
+                        '                                <h3>\n' +
+                        '                                    <span style="float: left;margin-left: 10px">'+r_info.address+'</span><br>\n' +
+                        '                                    <div>\n' +
+                        '                                        <span style="float: left;margin-left: 10px">'+r_info.company+'</span>\n' +
+                        '                                        <span style="float: left;margin-left: 10px">'+r_info.experience+'</span>\n' +
+                        '                                        <span style="float: left;margin-left: 10px">'+r_info.degree+'</span>\n' +
+                        '                                    </div>\n' +
+                        '\n' +
+                        '                                </h3>\n' +
+                        '                            </div>\n' +
+                        '                        </a>\n' +
+                        '                    </div>\n' +
+                        '                </div>'
+                }
+                //若数据不能被2整除补上最后一条数据
+                var last_info=data.list[length-1];
+                lis+='<div class="row" >\n' +
+                    '                            <div class="col-md-6" >\n' +
+                    '                                <a href="javascript:;">\n' +
+                    '                                    <div class="has_border">\n' +
+                    '                                        <h3>\n' +
+                    '                                            <span style="float: left;margin-left: 10px"><font size="4px">'+last_info.iname+'</font></span>\n' +
+                    '                                            <span class="price" style="float: right;margin-right: 10px"><strong>'+last_info.salary+'</strong></span>\n' +
+                    '                                        </h3>\n' +
+                    '                                        <h3>\n' +
+                    '                                            <span style="float: left;margin-left: 10px">'+last_info.address+'</span><br>\n' +
+                    '                                            <div>\n' +
+                    '                                                <span style="float: left;margin-left: 10px">'+last_info.company+'</span>\n' +
+                    '                                                <span style="float: left;margin-left: 10px">'+last_info.experience+'</span>\n' +
+                    '                                                <span style="float: left;margin-left: 10px">'+last_info.degree+'</span>\n' +
+                    '                                            </div>\n' +
+                    '                                        </h3>\n' +
+                    '                                    </div>\n' +
+                    '                                </a>\n' +
+                    '                            </div>\n' +
+                    '                        </div>'
+                //设置popularity
+                $("#popularity").html(lis);
+                //定位到页面顶部
+                window.scrollTo(0,0);
             })
         }
     </script>
@@ -134,45 +200,7 @@
                         <!-- Tab panes -->
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane active" id="popularity">
-                                <div class="row" >
-                                    <div class="col-md-6" >
-                                        <a href="javascript:;">
-                                            <div class="has_border">
-                                                <h3>
-                                                    <span style="float: left;margin-left: 10px"><font size="4px">研发工程师</font></span>
-                                                    <span class="price" style="float: right;margin-right: 10px"><strong>15-30K·13薪</strong></span>
-                                                </h3>
-                                                <h3>
-                                                    <span style="float: left;margin-left: 10px">杭州杭州杭州杭州杭州杭州杭州</span><br>
-                                                    <div>
-                                                        <span style="float: left;margin-left: 10px">阿里巴巴</span>
-                                                        <span style="float: left;margin-left: 10px">经验不限</span>
-                                                        <span style="float: left;margin-left: 10px">本科</span>
-                                                    </div>
-                                                </h3>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="col-md-6" >
-                                        <a href="javascript:;">
-                                            <div class="has_border">
-                                                <h3>
-                                                    <span style="float: left;margin-left: 10px"><font size="4px">研发工程师</font></span>
-                                                    <span class="price" style="float: right;margin-right: 10px"><strong>15-30K·13薪</strong></span>
-                                                </h3>
-                                                <h3>
-                                                    <span style="float: left;margin-left: 10px">杭州杭州杭州杭州杭州杭杭州杭州杭州杭州杭州杭州杭州杭州</span><br>
-                                                    <div>
-                                                        <span style="float: left;margin-left: 10px">阿里巴巴</span>
-                                                        <span style="float: left;margin-left: 10px">经验不限</span>
-                                                        <span style="float: left;margin-left: 10px">本科</span>
-                                                    </div>
 
-                                                </h3>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>

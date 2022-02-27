@@ -3,8 +3,13 @@ package com.exmple.servlet;
 import com.exmple.domin.DetailInfo;
 import com.exmple.domin.PageBean;
 import com.exmple.domin.ResultInfo;
+import com.exmple.domin.User;
 import com.exmple.service.DetailInfoService;
+import com.exmple.service.FavoriteService;
+import com.exmple.service.UserService;
 import com.exmple.service.impl.DetailInfoServiceImpl;
+import com.exmple.service.impl.FavoriteServiceImpl;
+import com.exmple.service.impl.UserServiceImpl;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +21,10 @@ import java.util.List;
 public class DetailInfoServlet extends BaseServlet{
 
     private DetailInfoServiceImpl detailInfoService=new DetailInfoServiceImpl();
+
+    private FavoriteService favoriteService=new FavoriteServiceImpl();
+
+    private UserService userService=new UserServiceImpl();
 
     /**
      * 分页查询
@@ -42,15 +51,57 @@ public class DetailInfoServlet extends BaseServlet{
         int pageSize=10;
         //查询数据
         PageBean<DetailInfo> pageBean=detailInfoService.pageQuery(cid,currentPage,pageSize,rnameStr);
-        List<DetailInfo> list = pageBean.getList();
-        for (DetailInfo d :
-                list) {
-            System.out.println(d);
-        }
         //序列化返回
         responseMsg(pageBean,response);
     }
 
+    /**
+     * 添加一个收藏
+     * @param request
+     * @param response
+     */
+    public void addFavorite(HttpServletRequest request,HttpServletResponse response){
+        //获取iid
+        String iidStr = request.getParameter("iid");
+        int iid = Integer.parseInt(iidStr);
+        //获取用户uid
+        User user =(User) request.getSession().getAttribute("user");
+        int uid = userService.getUser(user.getUsername()).getUid();
+        //添加收藏
+        favoriteService.addFavorite(iid,uid);
+    }
+
+    /**
+     * 根据iid获取收藏次数
+     * @param request
+     * @param response
+     */
+    public void favoriteCount(HttpServletRequest request,HttpServletResponse response){
+        //获取iid
+        String iidStr = request.getParameter("iid");
+        int iid = Integer.parseInt(iidStr);
+        //获取收藏次数
+        int count=favoriteService.queryCount(iid);
+        responseMsg(count,response);
+    }
+
+    /**
+     * 当前用户是否收藏
+     * @param request
+     * @param response
+     */
+    public void isFavorite(HttpServletRequest request,HttpServletResponse response){
+        //获取iid
+        String iidStr = request.getParameter("iid");
+        //数据转换
+        int iid = Integer.parseInt(iidStr);
+        //获取用户uid
+        User user =(User) request.getSession().getAttribute("user");
+        int uid = userService.getUser(user.getUsername()).getUid();
+        //查询是否被收藏
+        boolean flag=favoriteService.isFavorite(iid,uid);
+        responseMsg(flag,response);
+    }
     /**
      * 根据iid查询单个记录
      * @param request

@@ -162,4 +162,16 @@ public class UserServlet extends BaseServlet{
         request.getSession().invalidate();
         response.sendRedirect(request.getContextPath()+"/login.html");
     }
+
+    /**
+     * 查询当前用户信息
+     * @param request
+     * @param response
+     * @throws Exception
+     */
+    public void findOne(HttpServletRequest request,HttpServletResponse response)throws Exception{
+        //从session获取用户
+        Object user = request.getSession().getAttribute("user");
+        responseMsg(user,response);
+    }
 }

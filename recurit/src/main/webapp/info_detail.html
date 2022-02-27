@@ -49,7 +49,40 @@
                 $("#info").html(ps);
             })
 
+            //发送异步请求获取iid对应收藏次数
+            $.get("info/favoriteCount",{iid:iid},function (count){
+                $("#favoriteCount").html("已收藏"+count+"次");
+            })
         });
+
+        //收藏按钮
+        $(function () {
+            //发送请求判断用户是否收藏过
+            var iid=getParameter("iid");
+            $.get("info/isFavorite",{iid:iid},function (flag){
+                if(flag){//被收藏，设置样式
+                    $("#favorite").addClass("already");
+                    $("#favorite").attr("disabled","disabled");
+                    $("#favorite").removeAttr("onclick");
+                }
+            })
+        })
+
+        //收藏按钮触发的方法
+        function addFavorite() {
+            var iid=getParameter("iid");
+            //判断用户是否登录
+            $.get("user/findOne",{},function (user) {
+                if (user){//用户存在添加收藏
+                    $.get("info/addFavorite",{iid:iid},function () {
+                        //刷新页面
+                        location.reload();
+                    })
+                }else {//未登录跳转登录页面
+                    location.href="http://localhost/recruit/login.html;"
+                }
+            })
+        }
     </script>
 </head>
 
@@ -59,7 +92,15 @@
         <div class="you_need_konw">
             <span>职位详情</span>
             <div class="notice" id="info">
-            </div>           
+            </div>
+            <div>
+                <p class="collect">
+                    <a class="btn" id="favorite" onclick="addFavorite();"><i class="glyphicon glyphicon-heart-empty"></i>点击收藏</a>
+
+                    <!-- <a  class="btn already" disabled="disabled"><i class="glyphicon glyphicon-heart-empty"></i>点击收藏</a>-->
+                    <span id="favoriteCount"></span>
+                </p>
+            </div>
         </div>
     </div>
     <!-- 详情 end -->

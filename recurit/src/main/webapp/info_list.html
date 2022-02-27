@@ -104,19 +104,19 @@
                 //结果list的长度
                 var length=data.list.length
                 //数据的对数
-                var len=length/2;
+                var len=Math.floor(length/2);
                 var lis="";
                 for (var i=0;i<len;i++){
                     //拼接左边
                     var l_info=data.list[2*i];
                     var r_info=data.list[2*i+1];
-                    lis+='<div className="row">\n' +
-                        '                    <div className="col-md-6">\n' +
-                        '                        <a href="javascript:;">\n' +
-                        '                            <div className="has_border">\n' +
+                    lis+='<div class="row" style="margin-bottom: 10px">\n' +
+                        '                    <div class="col-md-6">\n' +
+                        '                        <a href="info_detail.html?iid='+l_info.iid+'">\n'+
+                        '                            <div class="has_border">\n' +
                         '                                <h3>\n' +
                         '                                    <span style="float: left;margin-left: 10px"><font size="4px">'+l_info.iname+'</font></span>\n' +
-                        '                                    <span className="price"\n' +
+                        '                                    <span class="price"\n' +
                         '                                          style="float: right;margin-right: 10px"><strong>'+l_info.salary+'</strong></span>\n' +
                         '                                </h3>\n' +
                         '                                <h3>\n' +
@@ -131,12 +131,12 @@
                         '                        </a>\n' +
                         '                    </div>'
                     //拼接右边
-                    lis+='    <div className="col-md-6">\n' +
-                        '                        <a href="javascript:;">\n' +
-                        '                            <div className="has_border">\n' +
+                    lis+='    <div class="col-md-6">\n' +
+                        '                        <a href="info_detail.html?iid='+r_info.iid+'">\n'+
+                        '                            <div class="has_border">\n' +
                         '                                <h3>\n' +
                         '                                    <span style="float: left;margin-left: 10px"><font size="4px">'+r_info.iname+'</font></span>\n' +
-                        '                                    <span className="price"\n' +
+                        '                                    <span class="price"\n' +
                         '                                          style="float: right;margin-right: 10px"><strong>'+r_info.salary+'</strong></span>\n' +
                         '                                </h3>\n' +
                         '                                <h3>\n' +
@@ -153,28 +153,32 @@
                         '                    </div>\n' +
                         '                </div>'
                 }
+
                 //若数据不能被2整除补上最后一条数据
-                var last_info=data.list[length-1];
-                lis+='<div class="row" >\n' +
-                    '                            <div class="col-md-6" >\n' +
-                    '                                <a href="javascript:;">\n' +
-                    '                                    <div class="has_border">\n' +
-                    '                                        <h3>\n' +
-                    '                                            <span style="float: left;margin-left: 10px"><font size="4px">'+last_info.iname+'</font></span>\n' +
-                    '                                            <span class="price" style="float: right;margin-right: 10px"><strong>'+last_info.salary+'</strong></span>\n' +
-                    '                                        </h3>\n' +
-                    '                                        <h3>\n' +
-                    '                                            <span style="float: left;margin-left: 10px">'+last_info.address+'</span><br>\n' +
-                    '                                            <div>\n' +
-                    '                                                <span style="float: left;margin-left: 10px">'+last_info.company+'</span>\n' +
-                    '                                                <span style="float: left;margin-left: 10px">'+last_info.experience+'</span>\n' +
-                    '                                                <span style="float: left;margin-left: 10px">'+last_info.degree+'</span>\n' +
-                    '                                            </div>\n' +
-                    '                                        </h3>\n' +
-                    '                                    </div>\n' +
-                    '                                </a>\n' +
-                    '                            </div>\n' +
-                    '                        </div>'
+                if (length%2!=0) {
+                    var last_info = data.list[length - 1];
+                    lis +='<div class="row">\n' +
+                        '                    <div class="col-md-6">\n' +
+                        '                        <a href="info_detail.html?iid='+last_info.iid+'">\n'+
+                        '                            <div class="has_border">\n' +
+                        '                                <h3>\n' +
+                        '                                    <span style="float: left;margin-left: 10px"><font size="4px">'+last_info.iname+'</font></span>\n' +
+                        '                                    <span class="price"\n' +
+                        '                                          style="float: right;margin-right: 10px"><strong>'+last_info.salary+'</strong></span>\n' +
+                        '                                </h3>\n' +
+                        '                                <h3>\n' +
+                        '                                    <span style="float: left;margin-left: 10px">'+last_info.address+'</span><br>\n' +
+                        '                                    <div>\n' +
+                        '                                        <span style="float: left;margin-left: 10px">'+last_info.company+'</span>\n' +
+                        '                                        <span style="float: left;margin-left: 10px">'+last_info.experience+'</span>\n' +
+                        '                                        <span style="float: left;margin-left: 10px">'+last_info.degree+'</span>\n' +
+                        '                                    </div>\n' +
+                        '                                </h3>\n' +
+                        '                            </div>\n' +
+                        '                        </a>\n' +
+                        '                    </div>'+
+                        '                 </div>'
+                }
                 //设置popularity
                 $("#popularity").html(lis);
                 //定位到页面顶部

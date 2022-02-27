@@ -63,7 +63,7 @@
 			    //1.获取邮箱
 				var email = $("#email").val();
 				//2.定义正则		itcast@163.com
-				var reg_email = /^\w+@\w+\.\w+$/;
+				var reg_email = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;
 
 				//3.判断
 				var flag = reg_email.test(email);

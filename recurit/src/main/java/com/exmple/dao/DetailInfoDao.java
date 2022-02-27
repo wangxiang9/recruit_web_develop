@@ -1,11 +1,14 @@
 package com.exmple.dao;
 
-import com.exmple.domin.ResultInfo;
+import com.exmple.domin.DetailInfo;
 
 import java.util.List;
 
 public interface DetailInfoDao {
-    int queryCount(int cid, String rnameStr);
 
-    List<ResultInfo> queryList(int cid, int start, int pageSize, String rnameStr);
+    public int queryCount(int cid, String rnameStr);
+
+    public List<DetailInfo> queryList(int cid, int start, int pageSize, String rnameStr);
+
+    DetailInfo queryOne(int iid);
 }

@@ -81,7 +81,7 @@ public class DetailInfoServlet extends BaseServlet{
         String iidStr = request.getParameter("iid");
         int iid = Integer.parseInt(iidStr);
         //获取收藏次数
-        int count=favoriteService.queryCount(iid);
+        int count=favoriteService.queryCount(iid,"iid");
         responseMsg(count,response);
     }
 

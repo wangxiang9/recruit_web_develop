@@ -4,15 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="edacadbe-059e-4edd-8b41-c8a8b7d765cd" name="Changes" comment="feat:详情页前后端">
-      <change afterPath="$PROJECT_DIR$/recurit/src/main/java/com/exmple/dao/FavoriteDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/recurit/src/main/java/com/exmple/dao/impl/FavoriteDaoImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/recurit/src/main/java/com/exmple/service/FavoriteService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/recurit/src/main/java/com/exmple/service/impl/FavoriteServiceImpl.java" afterDir="false" />
+    <list default="true" id="edacadbe-059e-4edd-8b41-c8a8b7d765cd" name="Changes" comment="feat:收藏功能">
+      <change afterPath="$PROJECT_DIR$/recurit/src/main/java/com/exmple/domin/Favorite.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/recurit/src/main/java/com/exmple/servlet/FavoriteServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/recurit/src/main/java/com/exmple/dao/FavoriteDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/recurit/src/main/java/com/exmple/dao/FavoriteDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/recurit/src/main/java/com/exmple/dao/impl/FavoriteDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/recurit/src/main/java/com/exmple/dao/impl/FavoriteDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/recurit/src/main/java/com/exmple/service/FavoriteService.java" beforeDir="false" afterPath="$PROJECT_DIR$/recurit/src/main/java/com/exmple/service/FavoriteService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/recurit/src/main/java/com/exmple/service/impl/FavoriteServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/recurit/src/main/java/com/exmple/service/impl/FavoriteServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/recurit/src/main/java/com/exmple/servlet/DetailInfoServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/recurit/src/main/java/com/exmple/servlet/DetailInfoServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/recurit/src/main/java/com/exmple/servlet/UserServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/recurit/src/main/java/com/exmple/servlet/UserServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/recurit/src/main/webapp/info_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/recurit/src/main/webapp/info_detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/recurit/src/main/webapp/favoriterank.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/recurit/src/main/webapp/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/recurit/src/main/webapp/header.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/recurit/src/main/webapp/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/recurit/src/main/webapp/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/recurit/src/main/webapp/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/recurit/src/main/webapp/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/recurit/src/main/webapp/myfavorite.html" beforeDir="false" afterPath="$PROJECT_DIR$/recurit/src/main/webapp/myfavorite.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/recurit/src/main/webapp/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/recurit/src/main/webapp/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/~$开发文档.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/~$综合案例笔记.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/代码随想录笔记记录.md" beforeDir="false" afterPath="$PROJECT_DIR$/代码随想录笔记记录.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/开发文档.docx" beforeDir="false" afterPath="$PROJECT_DIR$/开发文档.docx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,7 +119,7 @@
       <workItem from="1644890834368" duration="37507000" />
       <workItem from="1645106028593" duration="243000" />
       <workItem from="1645409339792" duration="7876000" />
-      <workItem from="1645944745045" duration="14638000" />
+      <workItem from="1645944745045" duration="25654000" />
     </task>
     <task id="LOCAL-00001" summary="html初步修改">
       <created>1644588405888</created>
@@ -215,7 +226,14 @@
       <option name="project" value="LOCAL" />
       <updated>1645952003665</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="feat:收藏功能">
+      <created>1645965301324</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1645965301324</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -243,6 +261,7 @@
     <MESSAGE value="feat:category展示优化" />
     <MESSAGE value="feat:list_info页面" />
     <MESSAGE value="feat:详情页前后端" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat:详情页前后端" />
+    <MESSAGE value="feat:收藏功能" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat:收藏功能" />
   </component>
 </project>

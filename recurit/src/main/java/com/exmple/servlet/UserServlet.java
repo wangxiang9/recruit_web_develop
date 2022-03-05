@@ -122,7 +122,7 @@ public class UserServlet extends BaseServlet{
         String msg=userService.login(user);//结果为“正常”即可登录
         if("正常".equals(msg)){//登录成功
             //将user存储在session中
-            session.setAttribute("user",user);
+            session.setAttribute("user",userService.getUser(user.getUsername()));
             resultInfo.setFlag(true);
         }else{//登录失败
             resultInfo.setFlag(false);

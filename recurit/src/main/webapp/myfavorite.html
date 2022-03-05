@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>黑马旅游网-我的收藏</title>
+        <title>我的收藏</title>
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="css/common.css">
         <link rel="stylesheet" href="css/index.css">
@@ -15,6 +15,183 @@
            }
        </style>
        <script src="js/jquery-3.3.1.js"></script>
+        <!-- Bootstrap -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="css/common.css">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="js/jquery-3.3.1.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="js/bootstrap.min.js"></script>
+        <!--导入布局js，共享header和footer-->
+        <script type="text/javascript" src="js/include.js"></script>
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        <link rel="stylesheet" type="text/css" href="css/common.css">
+        <link rel="stylesheet" href="css/search.css">
+        <script src="js/jquery-3.3.1.js"></script>
+        <script src="js/getParameter.js"></script>
+        <script>
+            $(function (){
+                //判断用户是否登录
+                $.get("user/findOne",{},function (user) {
+                    if (user){//用户存在添加收藏
+                        load(user.uid,null);
+                    }else {//未登录跳转登录页面
+                        location.href="http://localhost/recruit/login.html;"
+                    }
+                })
+            });
+            function load(uid, currentPage) {
+                //异步加载页面数据
+                $.get("favorite/pageQuery",{uid:uid,currentPage:currentPage},function (data) {
+                    //总页数和总记录数
+                    $("#totalPage").html(data.totalPage);
+                    $("#totalCount").html(data.totalCount);
+                    //拼接页码显示
+                    //首页拼接
+                    var lis='<li onclick="load('+uid+',1)"><a href="javascript:void(0)">首页</a></li>';
+                    //计算上一页
+                    var beforeNum=data.currentPage-1;
+                    if (beforeNum<1){
+                        beforeNum=1;
+                    }
+                    //上一页拼接
+                    lis+='<li className="threeword" onclick="load('+uid+','+beforeNum+')"><a href="javascript:void(0)">上一页</a></li>';
+                    /*
+                        1.一共展示10个页码，能够达到前5后4的效果
+                        2.如果前边不够5个，后边补齐10个
+                        3.如果后边不足4个，前边补齐10个
+                    */
+                    var start;//开始位置
+                    var end;//结束位置
+
+                    if (data.totalPage<10){//总页码数小于10
+                        start=1;
+                        end=data.totalPage;
+                    }else{//总页码数大于等于10
+                        start=data.currentPage-5;
+                        end=data.currentPage+4;
+                        if(start<1){//前面不够5个后面补齐
+                            start=1;
+                            end=10;
+                        }
+                        if (end>data.totalPage){//后面不够4个前面补齐
+                            end=data.totalPage;
+                            start=end-9;
+                        }
+                    }
+                    //拼接中间页码
+                    for (var i= start;i<=end;i++){
+                        if (i==data.currentPage){//判断是否为当前页码
+                            lis+='<li onclick="load('+uid+','+i+')" class="curPage"><a href="javascript:void(0)">'+i+'</a></li>';
+                        }else{
+                            lis+='<li onclick="load('+uid+','+i+')"><a href="javascript:void(0)">'+i+'</a></li>';
+                        }
+                    }
+                    //计算尾页
+                    var lastNum=data.currentPage+1;
+                    if (lastNum>data.totalPage){
+                        lastNum=data.totalPage;
+                    }
+                    //拼接下一页
+                    lis+='<li className="threeword" onclick="load('+uid+','+lastNum+')"><a href="javascript:void(0)">下一页</a></li>';
+                    //拼接尾页
+                    lis+='<li onclick="load('+uid+','+data.totalPage+')"><a href="javascript:void(0)">尾页</a></li>';
+                    //将lis内容设置到 ul
+                    $("#pageNum").html(lis);
+
+
+                    //结果list的长度
+                    var length=data.list.length
+                    //数据的对数
+                    var len=Math.floor(length/2);
+                    var lis="";
+                    for (var i=0;i<len;i++){
+                        //拼接左边
+                        var l_info=data.list[2*i];
+                        var r_info=data.list[2*i+1];
+                        lis+='<div class="row" style="margin-bottom: 10px">\n' +
+                            '                    <div class="col-md-6">\n' +
+                            '                        <a href="info_detail.html?iid='+l_info.iid+'">\n'+
+                            '                            <div class="has_border">\n' +
+                            '                                <h3>\n' +
+                            '                                    <span style="float: left;margin-left: 10px"><font size="4px">'+l_info.iname+'</font></span>\n' +
+                            '                                    <span class="price"\n' +
+                            '                                          style="float: right;margin-right: 10px"><strong>'+l_info.salary+'</strong></span>\n' +
+                            '                                </h3>\n' +
+                            '                                <h3>\n' +
+                            '                                    <span style="float: left;margin-left: 10px">'+l_info.address+'</span><br>\n' +
+                            '                                    <div>\n' +
+                            '                                        <span style="float: left;margin-left: 10px">'+l_info.company+'</span>\n' +
+                            '                                        <span style="float: left;margin-left: 10px">'+l_info.experience+'</span>\n' +
+                            '                                        <span style="float: left;margin-left: 10px">'+l_info.degree+'</span>\n' +
+                            '                                    </div>\n' +
+                            '                                </h3>\n' +
+                            '                            </div>\n' +
+                            '                        </a>\n' +
+                            '                    </div>'
+                        //拼接右边
+                        lis+='    <div class="col-md-6">\n' +
+                            '                        <a href="info_detail.html?iid='+r_info.iid+'">\n'+
+                            '                            <div class="has_border">\n' +
+                            '                                <h3>\n' +
+                            '                                    <span style="float: left;margin-left: 10px"><font size="4px">'+r_info.iname+'</font></span>\n' +
+                            '                                    <span class="price"\n' +
+                            '                                          style="float: right;margin-right: 10px"><strong>'+r_info.salary+'</strong></span>\n' +
+                            '                                </h3>\n' +
+                            '                                <h3>\n' +
+                            '                                    <span style="float: left;margin-left: 10px">'+r_info.address+'</span><br>\n' +
+                            '                                    <div>\n' +
+                            '                                        <span style="float: left;margin-left: 10px">'+r_info.company+'</span>\n' +
+                            '                                        <span style="float: left;margin-left: 10px">'+r_info.experience+'</span>\n' +
+                            '                                        <span style="float: left;margin-left: 10px">'+r_info.degree+'</span>\n' +
+                            '                                    </div>\n' +
+                            '\n' +
+                            '                                </h3>\n' +
+                            '                            </div>\n' +
+                            '                        </a>\n' +
+                            '                    </div>\n' +
+                            '                </div>'
+                    }
+
+                    //若数据不能被2整除补上最后一条数据
+                    if (length%2!=0) {
+                        var last_info = data.list[length - 1];
+                        lis +='<div class="row">\n' +
+                            '                    <div class="col-md-6">\n' +
+                            '                        <a href="info_detail.html?iid='+last_info.iid+'">\n'+
+                            '                            <div class="has_border">\n' +
+                            '                                <h3>\n' +
+                            '                                    <span style="float: left;margin-left: 10px"><font size="4px">'+last_info.iname+'</font></span>\n' +
+                            '                                    <span class="price"\n' +
+                            '                                          style="float: right;margin-right: 10px"><strong>'+last_info.salary+'</strong></span>\n' +
+                            '                                </h3>\n' +
+                            '                                <h3>\n' +
+                            '                                    <span style="float: left;margin-left: 10px">'+last_info.address+'</span><br>\n' +
+                            '                                    <div>\n' +
+                            '                                        <span style="float: left;margin-left: 10px">'+last_info.company+'</span>\n' +
+                            '                                        <span style="float: left;margin-left: 10px">'+last_info.experience+'</span>\n' +
+                            '                                        <span style="float: left;margin-left: 10px">'+last_info.degree+'</span>\n' +
+                            '                                    </div>\n' +
+                            '                                </h3>\n' +
+                            '                            </div>\n' +
+                            '                        </a>\n' +
+                            '                    </div>'+
+                            '                 </div>'
+                    }
+                    //设置popularity
+                    $("#home").html(lis);
+                    //定位到页面顶部
+                    window.scrollTo(0,0);
+                })
+            }
+        </script>
     </head>
     <body>
     <!--引入头部-->
@@ -32,136 +209,21 @@
                     <!-- Tab panes -->
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane active" id="home">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <a href="info_detail.html">
-                                        <img src="images/collection_pic.jpg" alt="">
-                                        <div class="has_border">
-                                            <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
-                                            <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="col-md-3">
-                                    <a href="info_detail.html">
-                                        <img src="images/collection_pic.jpg" alt="">
-                                        <div class="has_border">
-                                            <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
-                                            <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="col-md-3">
-                                    <a href="info_detail.html">
-                                        <img src="images/collection_pic.jpg" alt="">
-                                        <div class="has_border">
-                                            <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
-                                            <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="col-md-3">
-                                    <a href="info_detail.html">
-                                        <img src="images/collection_pic.jpg" alt="">
-                                        <div class="has_border">
-                                            <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
-                                            <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="col-md-3">
-                                    <a href="info_detail.html">
-                                        <img src="images/collection_pic.jpg" alt="">
-                                        <div class="has_border">
-                                            <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
-                                            <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="col-md-3">
-                                    <a href="info_detail.html">
-                                        <img src="images/collection_pic.jpg" alt="">
-                                        <div class="has_border">
-                                            <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
-                                            <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="col-md-3">
-                                    <a href="info_detail.html">
-                                        <img src="images/collection_pic.jpg" alt="">
-                                        <div class="has_border">
-                                            <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
-                                            <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="col-md-3">
-                                    <a href="info_detail.html">
-                                        <img src="images/collection_pic.jpg" alt="">
-                                        <div class="has_border">
-                                            <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
-                                            <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
-                                        </div>
-                                    </a>
-                                </div>
-                                 <div class="col-md-3">
-                                    <a href="info_detail.html">
-                                        <img src="images/collection_pic.jpg" alt="">
-                                        <div class="has_border">
-                                            <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
-                                            <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="col-md-3">
-                                    <a href="info_detail.html">
-                                        <img src="images/collection_pic.jpg" alt="">
-                                        <div class="has_border">
-                                            <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
-                                            <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="col-md-3">
-                                    <a href="info_detail.html">
-                                        <img src="images/collection_pic.jpg" alt="">
-                                        <div class="has_border">
-                                            <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
-                                            <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="col-md-3">
-                                    <a href="jroute_detail.html">
-                                        <img src="images/collection_pic.jpg" alt="">
-                                        <div class="has_border">
-                                            <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
-                                            <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
+
                         </div>                       
                     </div>
                 </div>
-                <div class="pageNum">
-                    <ul>
-                        <li><a href="">首页</a></li>
-                        <li class="threeword"><a href="#">上一页</a></li>
-                        <li><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">6</a></li>
-                        <li><a href="#">7</a></li>
-                        <li><a href="#">8</a></li>
-                        <li><a href="#">9</a></li>
-                        <li><a href="#">10</a></li>
-                        <li class="threeword"><a href="javascript:;">下一页</a></li>
-                        <li class="threeword"><a href="javascript:;">末页</a></li>
-                    </ul>
+                <div class="xinxi clearfix">
+                    <div class="left">
+                        <div class="page_num_inf">
+                            <i></i> 共
+                            <span id="totalPage">12</span>页<span id="totalCount">132</span>条
+                        </div>
+                        <div class="pageNum">
+                            <ul id="pageNum">
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </section>                      
         </section>

@@ -118,4 +118,28 @@ public class DetailInfoServlet extends BaseServlet{
         //序列化返回
         responseMsg(detailInfo,response);
     }
+
+    /**
+     * 查询最新记录，最多10条
+     * @param request
+     * @param response
+     * @throws Exception
+     */
+    public void queryNew(HttpServletRequest request,HttpServletResponse response)throws Exception{
+        //查询最新记录，最多10条
+        List<DetailInfo>list=detailInfoService.queryNew();
+        responseMsg(list,response);
+    }
+
+    /**
+     * 查询收藏最多记录，最多10条
+     * @param request
+     * @param response
+     * @throws Exception
+     */
+    public void queryHot(HttpServletRequest request,HttpServletResponse response)throws Exception{
+        //查询收藏最多记录，最多10条
+        List<DetailInfo>list=detailInfoService.queryHot();
+        responseMsg(list,response);
+    }
 }

@@ -11,4 +11,8 @@ public interface DetailInfoDao {
     public List<DetailInfo> queryList(int cid, int start, int pageSize, String rnameStr);
 
     DetailInfo queryOne(int iid);
+
+    List<DetailInfo> queryNewList(int count);
+
+    List<DetailInfo> queryHotList(List<Integer> id_list);
 }

@@ -23,6 +23,187 @@
       <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script>
+        $(function (){
+            //当页码加载完成后，调用load方法，发送ajax请求加载数据
+            loadNew();
+            loadHot()
+        });
+        function loadNew() {
+            //异步加载页面数据
+            $.get("info/queryNew",{},function (data) {
+                //结果list的长度
+                var length=data.length
+                //数据的对数
+                var len=Math.floor(length/2);
+                var lis="";
+                for (var i=0;i<len;i++){
+                    //拼接左边
+                    var l_info=data[2*i];
+                    var r_info=data[2*i+1];
+                    lis+='<div class="row" style="margin-bottom: 10px">\n' +
+                        '                    <div class="col-md-6">\n' +
+                        '                        <a href="info_detail.html?iid='+l_info.iid+'">\n'+
+                        '                            <div class="has_border">\n' +
+                        '                                <h3>\n' +
+                        '                                    <span style="float: left;margin-left: 10px"><font size="4px">'+l_info.iname+'</font></span>\n' +
+                        '                                    <span class="price"\n' +
+                        '                                          style="float: right;margin-right: 10px"><strong>'+l_info.salary+'</strong></span>\n' +
+                        '                                </h3>\n' +
+                        '                                <h3>\n' +
+                        '                                    <span style="float: left;margin-left: 10px">'+l_info.address+'</span><br>\n' +
+                        '                                    <div>\n' +
+                        '                                        <span style="float: left;margin-left: 10px">'+l_info.company+'</span>\n' +
+                        '                                        <span style="float: left;margin-left: 10px">'+l_info.experience+'</span>\n' +
+                        '                                        <span style="float: left;margin-left: 10px">'+l_info.degree+'</span>\n' +
+                        '                                    </div>\n' +
+                        '                                </h3>\n' +
+                        '                            </div>\n' +
+                        '                        </a>\n' +
+                        '                    </div>'
+                    //拼接右边
+                    lis+='    <div class="col-md-6">\n' +
+                        '                        <a href="info_detail.html?iid='+r_info.iid+'">\n'+
+                        '                            <div class="has_border">\n' +
+                        '                                <h3>\n' +
+                        '                                    <span style="float: left;margin-left: 10px"><font size="4px">'+r_info.iname+'</font></span>\n' +
+                        '                                    <span class="price"\n' +
+                        '                                          style="float: right;margin-right: 10px"><strong>'+r_info.salary+'</strong></span>\n' +
+                        '                                </h3>\n' +
+                        '                                <h3>\n' +
+                        '                                    <span style="float: left;margin-left: 10px">'+r_info.address+'</span><br>\n' +
+                        '                                    <div>\n' +
+                        '                                        <span style="float: left;margin-left: 10px">'+r_info.company+'</span>\n' +
+                        '                                        <span style="float: left;margin-left: 10px">'+r_info.experience+'</span>\n' +
+                        '                                        <span style="float: left;margin-left: 10px">'+r_info.degree+'</span>\n' +
+                        '                                    </div>\n' +
+                        '\n' +
+                        '                                </h3>\n' +
+                        '                            </div>\n' +
+                        '                        </a>\n' +
+                        '                    </div>\n' +
+                        '                </div>'
+                }
+
+                //若数据不能被2整除补上最后一条数据
+                if (length%2!=0) {
+                    var last_info = data[length - 1];
+                    lis +='<div class="row">\n' +
+                        '                    <div class="col-md-6">\n' +
+                        '                        <a href="info_detail.html?iid='+last_info.iid+'">\n'+
+                        '                            <div class="has_border">\n' +
+                        '                                <h3>\n' +
+                        '                                    <span style="float: left;margin-left: 10px"><font size="4px">'+last_info.iname+'</font></span>\n' +
+                        '                                    <span class="price"\n' +
+                        '                                          style="float: right;margin-right: 10px"><strong>'+last_info.salary+'</strong></span>\n' +
+                        '                                </h3>\n' +
+                        '                                <h3>\n' +
+                        '                                    <span style="float: left;margin-left: 10px">'+last_info.address+'</span><br>\n' +
+                        '                                    <div>\n' +
+                        '                                        <span style="float: left;margin-left: 10px">'+last_info.company+'</span>\n' +
+                        '                                        <span style="float: left;margin-left: 10px">'+last_info.experience+'</span>\n' +
+                        '                                        <span style="float: left;margin-left: 10px">'+last_info.degree+'</span>\n' +
+                        '                                    </div>\n' +
+                        '                                </h3>\n' +
+                        '                            </div>\n' +
+                        '                        </a>\n' +
+                        '                    </div>'+
+                        '                 </div>'
+                }
+                //设置popularity
+                $("#popularity").html(lis);
+                //定位到页面顶部
+                window.scrollTo(0,0);
+            })
+        }
+        function loadHot() {
+            //异步加载页面数据
+            $.get("info/queryHot",{},function (data) {
+                //结果list的长度
+                var length=data.length
+                //数据的对数
+                var len=Math.floor(length/2);
+                var lis="";
+                for (var i=0;i<len;i++){
+                    //拼接左边
+                    var l_info=data[2*i];
+                    var r_info=data[2*i+1];
+                    lis+='<div class="row" style="margin-bottom: 10px">\n' +
+                        '                    <div class="col-md-6">\n' +
+                        '                        <a href="info_detail.html?iid='+l_info.iid+'">\n'+
+                        '                            <div class="has_border">\n' +
+                        '                                <h3>\n' +
+                        '                                    <span style="float: left;margin-left: 10px"><font size="4px">'+l_info.iname+'</font></span>\n' +
+                        '                                    <span class="price"\n' +
+                        '                                          style="float: right;margin-right: 10px"><strong>'+l_info.salary+'</strong></span>\n' +
+                        '                                </h3>\n' +
+                        '                                <h3>\n' +
+                        '                                    <span style="float: left;margin-left: 10px">'+l_info.address+'</span><br>\n' +
+                        '                                    <div>\n' +
+                        '                                        <span style="float: left;margin-left: 10px">'+l_info.company+'</span>\n' +
+                        '                                        <span style="float: left;margin-left: 10px">'+l_info.experience+'</span>\n' +
+                        '                                        <span style="float: left;margin-left: 10px">'+l_info.degree+'</span>\n' +
+                        '                                    </div>\n' +
+                        '                                </h3>\n' +
+                        '                            </div>\n' +
+                        '                        </a>\n' +
+                        '                    </div>'
+                    //拼接右边
+                    lis+='    <div class="col-md-6">\n' +
+                        '                        <a href="info_detail.html?iid='+r_info.iid+'">\n'+
+                        '                            <div class="has_border">\n' +
+                        '                                <h3>\n' +
+                        '                                    <span style="float: left;margin-left: 10px"><font size="4px">'+r_info.iname+'</font></span>\n' +
+                        '                                    <span class="price"\n' +
+                        '                                          style="float: right;margin-right: 10px"><strong>'+r_info.salary+'</strong></span>\n' +
+                        '                                </h3>\n' +
+                        '                                <h3>\n' +
+                        '                                    <span style="float: left;margin-left: 10px">'+r_info.address+'</span><br>\n' +
+                        '                                    <div>\n' +
+                        '                                        <span style="float: left;margin-left: 10px">'+r_info.company+'</span>\n' +
+                        '                                        <span style="float: left;margin-left: 10px">'+r_info.experience+'</span>\n' +
+                        '                                        <span style="float: left;margin-left: 10px">'+r_info.degree+'</span>\n' +
+                        '                                    </div>\n' +
+                        '\n' +
+                        '                                </h3>\n' +
+                        '                            </div>\n' +
+                        '                        </a>\n' +
+                        '                    </div>\n' +
+                        '                </div>'
+                }
+
+                //若数据不能被2整除补上最后一条数据
+                if (length%2!=0) {
+                    var last_info = data[length - 1];
+                    lis +='<div class="row">\n' +
+                        '                    <div class="col-md-6">\n' +
+                        '                        <a href="info_detail.html?iid='+last_info.iid+'">\n'+
+                        '                            <div class="has_border">\n' +
+                        '                                <h3>\n' +
+                        '                                    <span style="float: left;margin-left: 10px"><font size="4px">'+last_info.iname+'</font></span>\n' +
+                        '                                    <span class="price"\n' +
+                        '                                          style="float: right;margin-right: 10px"><strong>'+last_info.salary+'</strong></span>\n' +
+                        '                                </h3>\n' +
+                        '                                <h3>\n' +
+                        '                                    <span style="float: left;margin-left: 10px">'+last_info.address+'</span><br>\n' +
+                        '                                    <div>\n' +
+                        '                                        <span style="float: left;margin-left: 10px">'+last_info.company+'</span>\n' +
+                        '                                        <span style="float: left;margin-left: 10px">'+last_info.experience+'</span>\n' +
+                        '                                        <span style="float: left;margin-left: 10px">'+last_info.degree+'</span>\n' +
+                        '                                    </div>\n' +
+                        '                                </h3>\n' +
+                        '                            </div>\n' +
+                        '                        </a>\n' +
+                        '                    </div>'+
+                        '                 </div>'
+                }
+                //设置popularity
+                $("#essence").html(lis);
+                //定位到页面顶部
+                window.scrollTo(0,0);
+            })
+        }
+    </script>
 </head>
 <body>
 	<!--引入头部-->

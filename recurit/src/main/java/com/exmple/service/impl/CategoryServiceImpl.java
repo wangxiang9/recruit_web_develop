@@ -34,7 +34,6 @@ public class CategoryServiceImpl implements CategoryService {
             for (Category c :
                     list) {
                 jedis.zadd("category",c.getCid(),c.getCname());
-                System.out.println(c.getCid());
             }
             //重新从缓存中读取
             category = jedis.zrangeWithScores("category", 0, -1);

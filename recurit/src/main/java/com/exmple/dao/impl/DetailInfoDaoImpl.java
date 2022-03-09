@@ -6,7 +6,6 @@ import com.exmple.utils.JDBCUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class DetailInfoDaoImpl implements DetailInfoDao {
@@ -64,6 +63,43 @@ public class DetailInfoDaoImpl implements DetailInfoDao {
         //定义sql模板
         String sql="select * from tab_info_list where iid=?";
         return jdbcTemplate.queryForObject(sql,new BeanPropertyRowMapper<>(DetailInfo.class),iid);
+    }
+
+    /**
+     * 查询最新十条记录并返回
+     * @param count
+     * @return
+     */
+    @Override
+    public List<DetailInfo> queryNewList(int count) {
+        //定义sql
+        String sql=null ;
+        if (count<=10){
+            sql="select * from tab_info_list";
+        }else{//取最新10条记录
+            sql="select * from tab_info_list order by iid desc limit 10";
+        }
+        return jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(DetailInfo.class));
+    }
+
+    /**
+     * 查询收藏最多10条记录并返回
+     * @param id_list
+     * @return
+     */
+    @Override
+    public List<DetailInfo> queryHotList(List<Integer> id_list) {
+        //定义sql
+        String sql="select * from tab_info_list where iid in(";
+        StringBuilder sb=new StringBuilder(sql);
+        for (Integer i :
+                id_list) {
+            sb.append(i).append(",");
+        }
+        sb.deleteCharAt(sb.length()-1);
+        sb.append(")");
+        sql=sb.toString();
+        return jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(DetailInfo.class));
     }
 
     /**

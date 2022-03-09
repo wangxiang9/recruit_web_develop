@@ -12,4 +12,6 @@ public interface FavoriteDao {
     int isFavorite(int iid, int uid);
 
     List<Favorite> queryIds(int uid, int start, int pageSize);
+
+    List<Integer> queryHotId(int count);
 }

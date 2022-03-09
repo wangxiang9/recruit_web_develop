@@ -67,4 +67,15 @@ public class FavoriteDaoImpl implements FavoriteDao {
             return null;
         }
     }
+
+    /**
+     * 查询收藏最多的10条记录iid
+     * @param count
+     * @return
+     */
+    @Override
+    public List<Integer> queryHotId(int count) {
+        String sql="select iid from (select iid,count(iid) b from tab_favorite group by iid) aa order by aa.b desc limit 10 ";
+        return jdbcTemplate.queryForList(sql,Integer.class);
+    }
 }

@@ -1,7 +1,9 @@
 package com.exmple.service.impl;
 
 import com.exmple.dao.DetailInfoDao;
+import com.exmple.dao.FavoriteDao;
 import com.exmple.dao.impl.DetailInfoDaoImpl;
+import com.exmple.dao.impl.FavoriteDaoImpl;
 import com.exmple.domin.DetailInfo;
 import com.exmple.domin.PageBean;
 import com.exmple.service.DetailInfoService;
@@ -18,6 +20,8 @@ import java.util.Set;
 public class DetailInfoServiceImpl implements DetailInfoService {
 
     private DetailInfoDao detailInfoDao=new DetailInfoDaoImpl();
+
+    private FavoriteDao favoriteDao=new FavoriteDaoImpl();
 
     /**
      * 分页查询
@@ -93,7 +97,15 @@ public class DetailInfoServiceImpl implements DetailInfoService {
         if (newJson==null){//jedis中无数据，到数据库中查找并存入jedis
             //查询总记录数
             int count = detailInfoDao.queryCount(0, null);
-            list= detailInfoDao.queryHotList(count);
+            if (count<=10) list=detailInfoDao.queryNewList(count);
+            else {
+                List<Integer>id_list= favoriteDao.queryHotId(count);
+                if (id_list.size()<10){
+                    list=detailInfoDao.queryNewList(count);
+                }else {
+                    list=detailInfoDao.queryHotList(id_list);
+                }
+            }
             String jsonString = JSON.toJSONString(list);
             jedis.set("hot",jsonString);
             jedis.expire("hot",60*60*24);//设置失效时间一天
